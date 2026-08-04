@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0a0e" />
+<meta name="description" content="EmojiTestWeb — công cụ đo FPS thực tế khi render hàng loạt Emoji trên trình duyệt của bạn." />
+<title>EmojiTestWeb — Đo hiệu năng render Emoji</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app" id="app">
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">⚡</span>
+      <div class="brand-text">
+        <span class="brand-name">EmojiTestWeb</span>
+        <span class="brand-sub">Đo FPS thực tế trên thiết bị của bạn</span>
+      </div>
+    </div>
+    <div class="live-pills">
+      <div class="pill pill-fps" id="pillFps">
+        <span class="pill-dot" id="fpsDot"></span>
+        <span class="pill-value mono" id="fpsLive">0</span>
+        <span class="pill-unit">FPS</span>
+      </div>
+      <div class="pill pill-count">
+        <span class="pill-emoji">😀</span>
+        <span class="pill-value mono" id="countLive">0</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="auto-banner" id="autoBanner" hidden>
+    <div class="auto-banner-main">
+      <span class="auto-banner-text" id="autoBannerText">Đang chạy Auto…</span>
+      <span class="auto-banner-step mono" id="autoBannerStep">0/0</span>
+    </div>
+    <div class="auto-banner-meter" aria-hidden="true">
+      <div class="auto-banner-meter-fill" id="autoProgressFill"></div>
+    </div>
+    <button class="stop-btn" id="autoStopBtn" type="button" aria-label="Dừng Auto">
+      <svg viewBox="0 0 24 24" width="12" height="12"><rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor"/></svg>
+      Dừng
+    </button>
+  </div>
+
+  <section class="readouts" aria-label="Thống kê đo lường">
+    <div class="meter">
+      <h3 class="meter-title">FPS</h3>
+      <div class="screen">
+        <span class="screen-value mono" id="fpsCurrent">0</span>
+      </div>
+      <div class="meter-sub">
+        <div class="sub-stat"><label>Tối đa</label><span class="mono" id="fpsMax">0</span></div>
+        <div class="sub-stat"><label>Tối thiểu</label><span class="mono" id="fpsMin">0</span></div>
+        <div class="sub-stat"><label>Trung bình</label><span class="mono" id="fpsAvg">0</span></div>
+      </div>
+    </div>
+    <div class="meter">
+      <h3 class="meter-title">Số lượng Emoji</h3>
+      <div class="screen">
+        <span class="screen-value mono" id="countCurrent">0</span>
+      </div>
+      <div class="meter-sub">
+        <div class="sub-stat"><label>Tối đa</label><span class="mono" id="countMax">0</span></div>
+        <div class="sub-stat"><label>Tối thiểu</label><span class="mono" id="countMin">0</span></div>
+        <div class="sub-stat"><label>Trung bình</label><span class="mono" id="countAvg">0</span></div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="control-panel" id="controlPanel">
+    <button class="latch" id="collapseBtn" type="button" aria-label="Thu gọn / Mở rộng bảng điều khiển" aria-expanded="true">
+      <svg id="latchIcon" viewBox="0 0 24 24" width="16" height="16"><polyline points="9 18 15 12 9 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="control-inner">
+      <div class="control-header">
+        <span>Bảng điều khiển</span>
+        <span class="control-header-hint">Số lượng Emoji</span>
+      </div>
+      <div class="btn-grid" id="btnGrid"></div>
+    </div>
+  </aside>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
